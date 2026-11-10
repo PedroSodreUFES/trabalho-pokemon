@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@color/lightred">
+
+    <ImageButton
+        android:id="@+id/botaoHome"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="Home"
+        android:src="@drawable/home"
+        android:background="@color/transparent"
+        android:scaleType="fitCenter"
+        android:layout_marginEnd="20dp"
+        android:padding="12dp" />
+
+    <ImageButton
+        android:id="@+id/botaoFavoritos"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="Favoritos"
+        android:src="@drawable/heart_filled"
+        android:background="@color/transparent"
+        android:scaleType="fitCenter"
+        android:padding="12dp" />
+
+</LinearLayout>

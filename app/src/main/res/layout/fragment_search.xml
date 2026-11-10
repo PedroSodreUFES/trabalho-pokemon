@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buscar Pokémon"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#222222" />
+
+    <EditText
+        android:id="@+id/campoPokemon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite o nome do Pokémon"
+        android:layout_marginTop="20dp"
+        android:inputType="textCapSentences" />
+
+    <TextView
+        android:id="@+id/resultado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="#333333"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/botaoBuscar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="BUSCAR"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#E84B4B" />
+
+</LinearLayout>
