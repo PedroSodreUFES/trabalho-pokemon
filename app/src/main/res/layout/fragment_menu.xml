@@ -33,7 +33,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:contentDescription="Lista de Pokemons"
-        android:src="@drawable/search"
+        android:src="@drawable/list"
         android:background="@color/transparent"
         android:scaleType="fitCenter"
         android:layout_marginStart="20dp"
