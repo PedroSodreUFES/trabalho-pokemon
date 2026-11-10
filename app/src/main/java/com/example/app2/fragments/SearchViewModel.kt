@@ -1,3 +1,4 @@
+
 package com.example.app2.fragments
 
 import androidx.lifecycle.LiveData
@@ -14,7 +15,6 @@ class SearchViewModel : ViewModel() {
     val pokemon: LiveData<Pokemon> = _pokemon
     private val _erro = MutableLiveData<String>()
     val erro: LiveData<String> = _erro
-
     fun buscar(nome: String) {
         val nomeFormatado = nome.trim().lowercase()
         if (nomeFormatado.isBlank()) {
@@ -24,18 +24,23 @@ class SearchViewModel : ViewModel() {
         RetrofitClient.pokemonService
             .buscarPokemon(nomeFormatado)
             .enqueue(object : Callback<Pokemon> {
+
                 override fun onResponse(
                     call: Call<Pokemon>,
                     response: Response<Pokemon>
                 ) {
                     if (response.isSuccessful) {
-                        response.body()?.let {
-                            _pokemon.postValue(it)
+                        val pokemon = response.body()
+                        if (pokemon != null) {
+                            _pokemon.postValue(pokemon)
+                        } else {
+                            _erro.postValue("Resposta vazia da PokéAPI!")
                         }
                     } else {
                         _erro.postValue("Nenhum Pokémon encontrado!")
                     }
                 }
+
                 override fun onFailure(
                     call: Call<Pokemon>,
                     t: Throwable

@@ -28,4 +28,15 @@
         android:scaleType="fitCenter"
         android:padding="12dp" />
 
+    <ImageButton
+        android:id="@+id/botaoListaPokemons"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="Lista de Pokemons"
+        android:src="@drawable/search"
+        android:background="@color/transparent"
+        android:scaleType="fitCenter"
+        android:layout_marginStart="20dp"
+        android:padding="12dp" />
+
 </LinearLayout>

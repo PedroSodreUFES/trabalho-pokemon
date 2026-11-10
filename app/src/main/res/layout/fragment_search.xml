@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Buscar Pokémon"
+        android:text="@string/find_pokemon"
         android:textSize="26sp"
         android:textStyle="bold"
         android:textColor="#222222" />
@@ -19,17 +19,9 @@
         android:id="@+id/campoPokemon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Digite o nome do Pokémon"
+        android:hint="@string/input_hint"
         android:layout_marginTop="20dp"
         android:inputType="textCapSentences" />
-
-    <TextView
-        android:id="@+id/resultado"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textColor="#333333"
-        android:textSize="16sp" />
 
     <View
         android:layout_width="match_parent"
@@ -40,7 +32,7 @@
         android:id="@+id/botaoBuscar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:text="BUSCAR"
+        android:text="@string/find"
         android:textColor="#FFFFFF"
         android:backgroundTint="#E84B4B" />
 

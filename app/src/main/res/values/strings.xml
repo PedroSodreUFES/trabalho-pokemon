@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Pokemons</string>
+    <string name="find_pokemon">Buscar Pokémon</string>
+    <string name="input_hint">Digite o nome do pokémon</string>
+    <string name="find">BUSCAR</string>
+    <string name="pokemon_details">Detalhes do Pokémon</string>
+    <string name="pokemon_attr">Atributos</string>
+    <string name="pokemon_image">Imagem do Pokémon</string>
+    <string name="pokemon_favorites">Pokémons Favoritos</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pokemon_list">Lista de Pokemons</string>
 </resources>
