@@ -1,3 +1,4 @@
+
 package com.example.app2
 
 import android.os.Bundle
@@ -11,13 +12,23 @@ import com.example.app2.models.PokemonEntity
 import com.example.app2.viewmodel.PokemonViewModel
 import android.content.Intent
 import android.widget.ImageButton
+import com.google.android.material.snackbar.Snackbar
+import android.graphics.Color
+import com.example.app2.auth.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class PokemonDetailActivity : AppCompatActivity() {
-
     private lateinit var viewModel: PokemonViewModel
-    private var favoritado = false
+    private var favoritado: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val usuario = FirebaseAuth.getInstance().currentUser
+        if (usuario == null) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pokemon_detail)
 
@@ -57,18 +68,30 @@ class PokemonDetailActivity : AppCompatActivity() {
             .into(imagem)
 
         viewModel = ViewModelProvider(this)[PokemonViewModel::class.java]
+
+        // Verifica se o Pokémon já está favoritado
+        botaoFavoritar.isEnabled = false
         viewModel.estaFavoritado(pokemonId).observe(this) { estaFavoritado ->
             favoritado = estaFavoritado
-            botaoFavoritar.text = if (favoritado) {
+            botaoFavoritar.text = if (favoritado == true) {
                 "Desfavoritar"
             } else {
                 "Favoritar"
             }
+            botaoFavoritar.isEnabled = true
         }
 
+        // Favoritar ou desfavoritar
         botaoFavoritar.setOnClickListener {
-            if (favoritado) {
+            if (favoritado == true) {
                 viewModel.remover(pokemonId)
+                Snackbar.make(
+                    botaoFavoritar,
+                    "Pokémon desfavoritado",
+                    Snackbar.LENGTH_SHORT
+                ).setBackgroundTint(Color.RED)
+                    .setTextColor(Color.WHITE)
+                    .show()
             } else {
                 val pokemon = PokemonEntity(
                     id = pokemonId,
@@ -82,7 +105,15 @@ class PokemonDetailActivity : AppCompatActivity() {
                     speed = pokemonSpeed
                 )
                 viewModel.inserir(pokemon)
+                Snackbar.make(
+                    botaoFavoritar,
+                    "Pokemon favoritado",
+                    Snackbar.LENGTH_SHORT
+                ).setBackgroundTint(Color.rgb(46, 125, 50))
+                    .setTextColor(Color.WHITE)
+                    .show()
             }
+            botaoFavoritar.isEnabled = false
         }
 
         botaoVoltar.setOnClickListener {

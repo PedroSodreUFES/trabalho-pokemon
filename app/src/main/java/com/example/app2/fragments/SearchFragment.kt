@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import com.example.app2.R
 import com.example.app2.PokemonDetailActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
+import android.graphics.Color
+import com.google.firebase.auth.FirebaseAuth
+import com.example.app2.auth.LoginActivity
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var viewModel: SearchViewModel
@@ -24,9 +27,21 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         val input = view.findViewById<EditText>(R.id.campoPokemon)
         val botao = view.findViewById<Button>(R.id.botaoBuscar)
+        val btnLogout = view.findViewById<Button>(R.id.btnLogout)
 
         botao.setOnClickListener {
             viewModel.buscar(input.text.toString())
+        }
+
+        btnLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+            startActivity(intent)
+            requireActivity().finish()
         }
 
         viewModel.pokemon.observe(viewLifecycleOwner) { pokemon ->
@@ -46,11 +61,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
 
         viewModel.erro.observe(viewLifecycleOwner) { mensagem ->
-            Toast.makeText(
-                requireContext(),
+            Snackbar.make(
+                requireView(),
                 mensagem,
-                Toast.LENGTH_SHORT
-            ).show()
+                Snackbar.LENGTH_SHORT
+            ).setBackgroundTint(Color.rgb(183, 28, 28))
+                .setTextColor(Color.WHITE)
+                .show()
         }
     }
 }

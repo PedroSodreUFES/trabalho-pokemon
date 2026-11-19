@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "978346107861",
+    "project_id": "pokemons-d2dd3",
+    "storage_bucket": "pokemons-d2dd3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978346107861:android:0a90ca63405440888f535c",
+        "android_client_info": {
+          "package_name": "com.example.app2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtC-KW4vwkbUoWjMK6M_kj54vEVXc43k4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
