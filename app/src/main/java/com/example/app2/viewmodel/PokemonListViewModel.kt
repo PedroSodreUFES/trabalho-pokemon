@@ -15,7 +15,7 @@ class PokemonListViewModel : ViewModel() {
     val pokemons: LiveData<List<PokemonListItem>> = _pokemons
     private val _erro = MutableLiveData<String>()
     val erro: LiveData<String> = _erro
-    private val quantidadePorCarregamento = 12
+    private val quantidadePorCarregamento = 30
     private var offset = 0
     private var carregando = false
 

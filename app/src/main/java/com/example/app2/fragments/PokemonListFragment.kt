@@ -61,7 +61,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemon_list) {
 
             Snackbar.make(
                 view,
-                "Mais 12 Pokémons foram carregados!\nRole para baixo para visualizar os novos Pokémons.",
+                "Mais 30 Pokémons foram carregados!\nRole para baixo para visualizar os novos Pokémons.",
                 Snackbar.LENGTH_LONG
             ).setBackgroundTint(Color.rgb(27, 94, 32))
                 .setTextColor(Color.WHITE)
