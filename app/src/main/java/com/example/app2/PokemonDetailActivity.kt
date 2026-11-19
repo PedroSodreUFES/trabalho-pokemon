@@ -117,8 +117,6 @@ class PokemonDetailActivity : AppCompatActivity() {
         }
 
         botaoVoltar.setOnClickListener {
-            val intent = Intent(this, PaginaPrincipal::class.java)
-            startActivity(intent)
             finish()
         }
     }

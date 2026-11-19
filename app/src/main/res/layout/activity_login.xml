@@ -66,7 +66,7 @@
             app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusBottomEnd="12dp"
-            app:endIconMode="password_toggle">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtSenha"

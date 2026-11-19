@@ -5,16 +5,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import com.example.app2.R
-import com.example.app2.PokemonDetailActivity
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
-import android.graphics.Color
-import com.google.firebase.auth.FirebaseAuth
+import com.example.app2.R
+import com.example.app2.PokemonDetailActivity
 import com.example.app2.auth.LoginActivity
+import androidx.appcompat.app.AlertDialog
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
+
     private lateinit var viewModel: SearchViewModel
 
     override fun onViewCreated(
@@ -34,40 +36,62 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
 
         btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(requireContext(), LoginActivity::class.java)
+            val usuario = FirebaseAuth.getInstance().currentUser
 
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val nomeUsuario = usuario?.displayName
+                ?: usuario?.email?.substringBefore("@")
+                ?: "Usuário"
 
-            startActivity(intent)
-            requireActivity().finish()
+            AlertDialog.Builder(requireContext())
+                .setTitle("Sair da conta")
+                .setMessage("$nomeUsuario, você quer realmente sair?")
+                .setPositiveButton("Sair") { _, _ ->
+                    FirebaseAuth.getInstance().signOut()
+                    val intent = Intent(requireContext(), LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
         }
 
         viewModel.pokemon.observe(viewLifecycleOwner) { pokemon ->
-            val intent = Intent(requireContext(), PokemonDetailActivity::class.java)
 
-            intent.putExtra("pokemon_id", pokemon.id)
-            intent.putExtra("pokemon_name", pokemon.name)
-            intent.putExtra("pokemon_height", pokemon.height)
-            intent.putExtra("pokemon_weight", pokemon.weight)
-            intent.putExtra("pokemon_image", pokemon.sprites.front_default)
-            intent.putExtra("pokemon_hp", pokemon.hp)
-            intent.putExtra("pokemon_attack", pokemon.attack)
-            intent.putExtra("pokemon_defense", pokemon.defense)
-            intent.putExtra("pokemon_speed", pokemon.speed)
+            if (pokemon != null) {
+                val intent = Intent(
+                    requireContext(),
+                    PokemonDetailActivity::class.java
+                )
 
-            startActivity(intent)
+                intent.putExtra("pokemon_id", pokemon.id)
+                intent.putExtra("pokemon_name", pokemon.name)
+                intent.putExtra("pokemon_height", pokemon.height)
+                intent.putExtra("pokemon_weight", pokemon.weight)
+                intent.putExtra("pokemon_image", pokemon.sprites.front_default)
+                intent.putExtra("pokemon_hp", pokemon.hp)
+                intent.putExtra("pokemon_attack", pokemon.attack)
+                intent.putExtra("pokemon_defense", pokemon.defense)
+                intent.putExtra("pokemon_speed", pokemon.speed)
+
+                viewModel.limparPokemon()
+                input.text.clear()
+                startActivity(intent)
+            }
         }
 
         viewModel.erro.observe(viewLifecycleOwner) { mensagem ->
-            Snackbar.make(
-                requireView(),
-                mensagem,
-                Snackbar.LENGTH_SHORT
-            ).setBackgroundTint(Color.rgb(183, 28, 28))
-                .setTextColor(Color.WHITE)
-                .show()
+            if (!mensagem.isNullOrBlank()) {
+                Snackbar.make(
+                    view,
+                    mensagem,
+                    Snackbar.LENGTH_SHORT
+                ).setBackgroundTint(Color.rgb(183, 28, 28))
+                    .setTextColor(Color.WHITE)
+                    .show()
+
+                viewModel.limparErro()
+            }
         }
     }
 }
